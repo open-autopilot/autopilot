@@ -7,9 +7,19 @@ while [[ $# -gt 0 ]]; do
             SERVICE="$2"
             shift
             ;;
-        --platform)
+        -p | --platform)
             PLATFORM="$2"
             shift
+            ;;
+        -h | --help)
+            echo "Usage: transfer.sh [options]"
+            echo ""
+            echo "Options:"
+            echo "  -s, --service <service>    Transfer only the specified service"
+            echo "  -p, --platform <platform>  Required. The platform to transfer"
+            echo "                             Specify, e.g. linux/amd64,linux/arm64"  
+            echo "  --help                     Show this help message"
+            exit 0
             ;;
         *)
 

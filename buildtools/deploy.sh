@@ -17,6 +17,15 @@ while [[ $# -gt 0 ]]; do
         -n | --no-unpack)
             UNPACK=false
             ;;
+        -h | --help)
+            echo "Usage: deploy.sh [options]"
+            echo ""
+            echo "Options:"
+            echo "  -s, --service <service>    Deploy only the specified service"
+            echo "  -n, --no-unpack            Do not unpack container files"
+            echo "  --help                     Show this help message"
+            exit 0
+            ;;   
         *)
 
         # Unknown option

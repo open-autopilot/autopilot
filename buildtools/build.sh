@@ -12,9 +12,19 @@ while [[ $# -gt 0 ]]; do
             SERVICES="$2"
             shift
             ;;
-        --platform)
+        -p | --platform)
             PLATFORMS="$2"
             shift
+            ;;
+        -h | --help)
+            echo "Usage: build.sh [options]"
+            echo ""
+            echo "Options:"
+            echo "  -s, --service <service>    Build only the specified service"
+            echo "  -p, --platform <platform>  Required. The platform to build"
+            echo "                             Specify, e.g. linux/amd64,linux/arm64"  
+            echo "  --help                     Show this help message"
+            exit 0
             ;;
         *)
 
@@ -26,9 +36,10 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-# Set the default architecture if none is provided
-if [[ -z "$PLATFORMS" ]]; then
-    PLATFORMS="linux/amd64,linux/arm64"
+# Check if platform is null
+if [ -z "$PLATFORMS" ]; then
+    echo "Error: --platform option is required."
+    exit 1
 fi
 IFS=',' read -ra PLATFORM_ARRAY <<< "$PLATFORMS"
 
