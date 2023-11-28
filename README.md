@@ -2,7 +2,7 @@
 This project is an autopilot designed to be run on all kinds of hardware for the agro conditions. 
 
 ## buildtools
-To build this project you need to use the 'buildtools'. There you have multiple commands. To see what they can do you can run --help to see all options. 
+To build this project you need to use the 'buildtools'. There you have multiple commands. To see what they can do, see all options below. 
 
 The tools available are: 
 - build.sh (options --service | -s, --platform | -p)
