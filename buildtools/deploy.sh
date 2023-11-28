@@ -1,3 +1,5 @@
+source ~/.bashrc
+
 SCRIPT_DIR="$(dirname "$0")"
 BUILD_DIR="$SCRIPT_DIR/build"
 ASSETS_DIR="$SCRIPT_DIR/assets"
