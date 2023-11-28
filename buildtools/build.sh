@@ -2,7 +2,6 @@
 SCRIPT_DIR="$(dirname "$0")"
 PARENT_DIR="$SCRIPT_DIR/.."
 PARENT_DIR_FULL=$(realpath "$PARENT_DIR")
-echo "PARENT_DIR_FULL: $PARENT_DIR_FULL"
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do

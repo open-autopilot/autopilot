@@ -47,7 +47,11 @@ if [$NO_UNPACK]; then
     done
 fi 
 
-echo "Deploying containers"
-cat $ASSETS_DIR/docker-compose.yml
-docker-compose -f $ASSETS_DIR/docker-compose.yml down
-docker-compose -f $ASSETS_DIR/docker-compose.yml up -d
+if [[ -z "$SERVICES" ]]; then
+    echo "Deploying all containers"
+    docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate
+else 
+    echo "Deploying container: $SERVICES"
+    docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate $SERVICES
+fi
+
