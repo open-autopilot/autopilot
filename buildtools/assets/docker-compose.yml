@@ -1,0 +1,5 @@
+version: '3.8'
+services:
+  navigation-service:
+    image: navigation-service:latest
+    command: /bin/bash ./entry_point.sh
