@@ -3,6 +3,7 @@ source ~/.bashrc
 SCRIPT_DIR="$(dirname "$0")"
 BUILD_DIR="$SCRIPT_DIR/build"
 ASSETS_DIR="$SCRIPT_DIR/assets"
+UNPACK=true
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -14,7 +15,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         -n | --no-unpack)
-            NO_UNPACK=true
+            UNPACK=false
             ;;
         *)
 
@@ -26,7 +27,7 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-if [$NO_UNPACK]; then  
+if $UNPACK; then  
     CONTAINERFILES=($(find "$BUILD_DIR" -type f -name "*.tar"))
     HOST_PLATFORM=$(docker version --format '{{.Client.Os}}/{{.Client.Arch}}')
     HOST_PLATFORM_CLEANED=$(echo "$HOST_PLATFORM" | tr '/' '-')
@@ -50,10 +51,8 @@ if [$NO_UNPACK]; then
 fi 
 
 if [[ -z "$SERVICES" ]]; then
-    echo "Deploying all containers"
     docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate
 else 
-    echo "Deploying container: $SERVICES"
     docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate $SERVICES
 fi
 
