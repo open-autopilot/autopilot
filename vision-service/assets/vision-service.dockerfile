@@ -27,4 +27,4 @@ RUN apt-get install ros-humble-demo-nodes-cpp -y
 # running ros2 packages
 ARG PROJECT_DIR
 COPY $PROJECT_DIR/buildtools/assets/client.xml client.xml
-COPY $PROJECT_DIR/navigation-service/assets/entry_point.sh entry_point.sh
+COPY $PROJECT_DIR/vision-service/assets/entry_point.sh entry_point.sh
