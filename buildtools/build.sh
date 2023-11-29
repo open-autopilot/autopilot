@@ -36,6 +36,10 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+if [-z $SCRIPT_DIR/build]; then
+    mkdir $SCRIPT_DIR/build
+fi
+
 # Check if platform is null
 if [ -z "$PLATFORMS" ]; then
     echo "Error: --platform option is required."

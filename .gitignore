@@ -1,1 +1,7 @@
 *.tar
+/.vscode
+/build
+/install
+/logs
+/log
+
