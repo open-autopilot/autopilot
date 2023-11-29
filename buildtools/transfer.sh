@@ -48,6 +48,4 @@ else
     TRANSFER_POWERSHELL=$(echo "scp //wsl.localhost/Ubuntu-22.04/$SCRIPT_DIR_FULL/build/$SERVICE.$PLATFORM_CLEANED.tar autopilot@autopilot.local:/home/autopilot/autopilot/buildtools/build/")
 fi
 
-echo $TRANSFER_POWERSHELL
-
 powershell.exe -Command $TRANSFER_POWERSHELL
