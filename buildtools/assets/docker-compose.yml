@@ -1,5 +1,17 @@
 version: '3.8'
+
+x-common-variables: &common-variables
+  ROS_DOMAIN_ID: 16
+  FASTRTPS_DEFAULT_PROFILES_FILE: 'client.xml'
+
 services:
   navigation-service:
     image: navigation-service:latest
     command: /bin/bash ./entry_point.sh
+    privileged: True
+    network_mode: host
+  vision-service:
+    image: vision-service:latest
+    command: /bin/bash ./entry_point.sh
+    privileged: True
+    network_mode: host

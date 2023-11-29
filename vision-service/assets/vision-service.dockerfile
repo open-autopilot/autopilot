@@ -22,18 +22,9 @@ RUN apt-get install ros-dev-tools -y
 RUN source /opt/ros/humble/setup.bash
 
 # installing ros2 dependencies
-RUN apt-get update
-RUN apt-get install ros-humble-navigation2 -y
-RUN apt-get install ros-humble-nav2-* -y
-RUN apt-get install ros-humble-dwb-* -y
-RUN apt-get install ros-humble-behaviortree-cpp -y
 RUN apt-get install ros-humble-demo-nodes-cpp -y
-RUN apt-get install ros-humble-robot-localization -y
-
-# building ros2 dependencies
-ARG PROJECT_DIR
-COPY $PROJECT_DIR/navigation-service/source/nav2_autopilot_bringup nav2_autopilot_bringup
-RUN colcon build --packages-select nav2_autopilot_bringup
 
 # running ros2 packages
+ARG PROJECT_DIR
+COPY $PROJECT_DIR/buildtools/assets/client.xml client.xml
 COPY $PROJECT_DIR/navigation-service/assets/entry_point.sh entry_point.sh
