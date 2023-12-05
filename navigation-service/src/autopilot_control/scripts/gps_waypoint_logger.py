@@ -7,6 +7,7 @@ import sys
 import tkinter as tk
 from tkinter import messagebox
 from nav2_gps_waypoint_follower_demo.utils.gps_utils import euler_from_quaternion
+from robot_localization import FromLL
 
 
 class GpsGuiLogger(tk.Tk, Node):
