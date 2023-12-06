@@ -21,10 +21,10 @@ import launch.actions
 
 
 def generate_launch_description():
-    gps_wpf_dir = get_package_share_directory(
-        "nav2_gps_waypoint_follower_demo")
+    autopilot_bringup_dir = get_package_share_directory(
+        "autopilot_bringup")
     rl_params_file = os.path.join(
-        gps_wpf_dir, "config", "dual_ekf_navsat_params.yaml")
+        autopilot_bringup_dir, "config", "ekf_autopilot_params.yaml")
 
     return LaunchDescription(
         [

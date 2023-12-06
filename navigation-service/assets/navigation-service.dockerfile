@@ -26,14 +26,32 @@ RUN apt-get update
 RUN apt-get install ros-humble-navigation2 -y
 RUN apt-get install ros-humble-nav2-* -y
 RUN apt-get install ros-humble-dwb-* -y
-RUN apt-get install ros-humble-behaviortree-cpp -y
-RUN apt-get install ros-humble-demo-nodes-cpp -y
-RUN apt-get install ros-humble-robot-localization -y
+RUN apt-get install libgeographic-dev -y
+RUN apt-get install ros-humble-geographic-msgs -y
 
-# building ros2 dependencies
+# compiling ros2 dependencies
+RUN git clone https://github.com/cra-ros-pkg/robot_localization.git
+WORKDIR /robot_localization
+RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install
+
+# compiling ros2 code
 ARG PROJECT_DIR
-COPY $PROJECT_DIR/navigation-service/source/nav2_autopilot_bringup nav2_autopilot_bringup
-RUN colcon build --packages-select nav2_autopilot_bringup
+WORKDIR /
+COPY $PROJECT_DIR/navigation-service/src/autopilot_bringup autopilot_bringup
+COPY $PROJECT_DIR/navigation-service/src/autopilot_control autopilot_control
+
+# deleting build and install folders
+RUN rm -rf autopilot_bringup/install \
+&& rm -rf autopilot_bringup/build \
+&& rm -rf autopilot_bringup/log \
+&& rm -rf autopilot_control/install \
+&& rm -rf autopilot_control/build \
+&& rm -rf autopilot_control/log
+
+
+WORKDIR /autopilot_bringup
+RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install
 
 # running ros2 packages
+WORKDIR /
 COPY $PROJECT_DIR/navigation-service/assets/entry_point.sh entry_point.sh
