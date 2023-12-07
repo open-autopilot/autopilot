@@ -1,17 +1,10 @@
-# Welcome to MkDocs
+# Getting Started
+## Overview
+The Autopilot system presented in this documentation is a sophisticated ROS 2-based solution designed to operate seamlessly across diverse platforms. Developed with a specific focus on navigating fields of crops for precision tasks, its comprehensive features are geared towards enhancing agricultural automation. This documentation serves as a crucial guide for a broad audience, including developers, engineers, and enthusiasts seeking to understand, deploy, and customize the Autopilot to meet their specific agricultural automation needs.
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+![Process](assets/what.png)
 
-## Commands
+## Build and Deployment Procedures
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Development Guidelines
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.

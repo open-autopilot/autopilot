@@ -1,3 +1,47 @@
-site_name: Open Autopilot Documentation
-theme: 
+site_name: Autopilot Documentation
+theme:
     name: material
+    logo: assets/logo.png
+    favicon: assets/logo.png
+    features:
+      - navigation.tabs
+      - navigation.sections
+      - navigation.top
+      - search.suggest
+      - search.highlight
+      - content.tabs.link
+      - content.code.annotate
+      - content.code.copy
+    language: en
+    palette:
+      - scheme: default
+        toggle:
+          icon: material/toggle-switch-off-outline
+          name: Toggle dark mode
+        primary: green
+        accent: green
+      - scheme: slate
+        toggle:
+          icon: material/toggle-switch
+          name: Toggle light mode
+        primary: green
+        accent: green
+
+  
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
