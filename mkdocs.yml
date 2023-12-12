@@ -1,8 +1,8 @@
 site_name: Autopilot Documentation
 theme:
     name: material
-    logo: assets/logo.png
-    favicon: assets/logo.png
+    logo: assets/logo1.png
+    favicon: assets/logo1.png
     features:
       - navigation.tabs
       - navigation.sections
