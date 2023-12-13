@@ -55,7 +55,7 @@ for FILE in "${DOCKERFILES[@]}"; do
     if [ "$SERVICES" = "$DOCKERFILE_NAME_NO_EXT" ] || [[ -z "$SERVICES" ]]; then
         for PLATFORM in "${PLATFORM_ARRAY[@]}"; do
             PLATFORM_CLEANED=$(echo "$PLATFORM" | tr '/' '-')
-            docker buildx build -f $FILE --platform $PLATFORM --build-arg="PROJECT_DIR=$PARENT_DIR_FULL" -o type=tar,dest="$SCRIPT_DIR/build/$DOCKERFILE_NAME_NO_EXT.$PLATFORM_CLEANED.tar" /
+            docker buildx build -f $FILE --platform $PLATFORM --build-arg="PROJECT_DIR=$PARENT_DIR_FULL" -o type=tar,dest="$SCRIPT_DIR/build/$DOCKERFILE_NAME_NO_EXT.$PLATFORM_CLEANED.tar" $PARENT_DIR_FULL
         done
     fi
 done

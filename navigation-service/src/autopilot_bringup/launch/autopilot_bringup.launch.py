@@ -30,14 +30,14 @@ def generate_launch_description():
     autopilot_bringup_dir = get_package_share_directory('autopilot_bringup')
     launch_dir = os.path.join(autopilot_bringup_dir, 'launch')
     params_dir = os.path.join(autopilot_bringup_dir, "config")
-    nav2_params = os.path.join(params_dir, "nav2_no_map_params.yaml")
+    nav2_params = os.path.join(params_dir, "nav2_autopilot_params.yaml")
     configured_params = RewrittenYaml(
         source_file=nav2_params, root_key="", param_rewrites="", convert_types=True
     )
 
     robot_localization_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'dual_ekf_navsat.launch.py'))
+            os.path.join(launch_dir, 'autopilot_ekf.launch.py'))
     )
 
     navigation2_cmd = IncludeLaunchDescription(
@@ -45,7 +45,6 @@ def generate_launch_description():
             os.path.join(nav2_bringup_dir, "launch", "navigation_launch.py")
         ),
         launch_arguments={
-            "use_sim_time": "True",
             "params_file": configured_params,
             "autostart": "True",
         }.items(),
