@@ -18,10 +18,11 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, GroupAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.conditions import IfCondition
 from nav2_common.launch import RewrittenYaml
+from launch_ros.actions import SetRemap
 
 
 def generate_launch_description():
@@ -40,16 +41,20 @@ def generate_launch_description():
             os.path.join(launch_dir, 'autopilot_ekf.launch.py'))
     )
 
-    navigation2_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(nav2_bringup_dir, "launch", "navigation_launch.py")
-        ),
-        launch_arguments={
-            "params_file": configured_params,
-            "autostart": "True",
-        }.items(),
+    navigation2_cmd = GroupAction(actions=[ 
+            SetRemap(src='/cmd_vel',dst='/robot/cmd_vel_aut'),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(nav2_bringup_dir, "launch", "navigation_launch.py")
+                ),
+                launch_arguments={
+                    "params_file": configured_params,
+                    "autostart": "True",
+                }.items(),
+            )
+        ]
     )
-
+   
     # Create the launch description and populate
     ld = LaunchDescription()
     ld.add_action(robot_localization_cmd)

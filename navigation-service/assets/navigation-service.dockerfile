@@ -48,4 +48,5 @@ RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install
 
 # running ros2 packages
 WORKDIR /
+COPY /buildtools/assets/client.xml client.xml
 COPY /navigation-service/assets/entry_point.sh entry_point.sh
