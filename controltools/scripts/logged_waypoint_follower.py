@@ -61,9 +61,8 @@ class GpsWpCommander(Node):
 
             log = 'long{:f}, lat={:f}, alt={:f}'.format(self.req.ll_point.longitude, self.req.ll_point.latitude, self.req.ll_point.altitude)
             self.get_logger().info(log)
-
-            self.future = self.localizer.call_async(self.req)
-            rclpy.spin_until_future_complete(self, self.future)
+            self.future = self.localizer.call(self.req)
+            self.get_logger().info("completed")
 
             self.resp = PoseStamped()
             self.resp.header.frame_id = 'map'
@@ -74,9 +73,6 @@ class GpsWpCommander(Node):
             
             self.resp.pose.orientation = wp.orientation
             wpl += [self.resp]
-
-
-           
 
         self.navigator.followWaypoints(wpl)
         print("wps completed successfully")
