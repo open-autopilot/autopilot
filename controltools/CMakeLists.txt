@@ -18,7 +18,17 @@ find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
  
 install(
-  DIRECTORY config scripts
+  DIRECTORY scripts
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY
+  config
   DESTINATION share/${PROJECT_NAME}
 )
  
@@ -30,4 +40,5 @@ install(PROGRAMS
   scripts/logged_waypoint_follower.py
   DESTINATION lib/${PROJECT_NAME}
 )
+
 ament_package()
