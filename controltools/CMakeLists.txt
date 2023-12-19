@@ -38,6 +38,8 @@ ament_python_install_package(scripts)
 # Install Python executables
 install(PROGRAMS
   scripts/logged_waypoint_follower.py
+  scripts/interactive_waypoint_follower.py
+  scripts/gps_waypoint_logger.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
