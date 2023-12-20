@@ -37,10 +37,10 @@ class PerspectiveTransformNode(Node):
     def image_callback(self, frame):
    
         # Grid width and height determined
-        grid_width, grid_height = self.config.grid_width, self.config.grid_height
+        grid_width, grid_height, camera_view, birdseye_view, mask_view, grid_view  = self.config.grid_width, self.config.grid_height, self.config.camera_view, self.config.birdseye_eye, self.config.mask_view, self.config.grid_view
         resolution_x = 1280 // grid_width
         resolution_y = 720 // grid_height
-
+        
         # Initialisation of empty grid
         occupancy_grid = np.zeros((grid_height, grid_width), dtype=np.uint8)
 
@@ -68,7 +68,7 @@ class PerspectiveTransformNode(Node):
         bitmap_image_transformed = cv2.imread(bitmap_path_transformed)
 
         # Set threshold for green color
-        lower_green = np.array([self.config.profiles[0].hue_low, self.config.profiles[0].sat_low, 		self.config.profiles[0].val_low], dtype=np.uint8)
+        lower_green = np.array([self.config.profiles[0].hue_low, self.config.profiles[0].sat_low, self.config.profiles[0].val_low], dtype=np.uint8)
         upper_green = np.array([self.config.profiles[0].hue_up, self.config.profiles[0].sat_up, self.config.profiles[0].val_up], dtype=np.uint8)
 
         # Convert to HSV format
@@ -95,18 +95,20 @@ class PerspectiveTransformNode(Node):
         occupancy_grid_msg = self.create_occupancy_grid_message(thresholded_resized)
         self.occupancy_grid_publisher.publish(occupancy_grid_msg)
     
-        
         # Display the results
-        cv2.imshow("Frame", frame)
-        cv2.imshow("transformed_frame Bird's Eye View", transformed_frame)
-        cv2.imshow("Green Mask Transformed", green_mask_transformed)
+        if camera_view == True:
+            cv2.imshow("Frame", frame)
+        if birdseye_view == True:
+            cv2.imshow("transformed_frame Bird's Eye View", transformed_frame)
+        if mask_view == True:
+            cv2.imshow("Green Mask Transformed", green_mask_transformed)
         
         #Resize and show occupancy grid
-        cv2.namedWindow("Occupancy grid", cv2.WINDOW_NORMAL)
-        cv2.imshow("Occupancy grid", thresholded_resized)
-        cv2.resizeWindow("Occupancy grid", 200,400)
+        if grid_view == True:
+            cv2.namedWindow("Occupancy grid", cv2.WINDOW_NORMAL)
+            cv2.imshow("Occupancy grid", thresholded_resized)
+            cv2.resizeWindow("Occupancy grid", 200,400)
         
-        print('stap5(afterimshow)')
         if cv2.waitKey(1) == 27:
             self.get_logger().info('Close...')
             cv2.destroyAllWindows()

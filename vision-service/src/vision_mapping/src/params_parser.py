@@ -54,6 +54,10 @@ class ParamParser:
                     config.minimum = config_data.get("minimum", 0.0)
                     config.grid_width = config_data.get("grid_width", 10)
                     config.grid_height = config_data.get("grid_height", 10)
+                    config.camera_view = config_data.get("camera_view", False)
+                    config.birdseye_view = config_data.get("birdseye_view", False)
+                    config.mask_view = config_data.get("mask_view", False)
+                    config.grid_view = config_data.get("grid_view", False)
 
                     profiles_data = config_data.get("profiles", [])
                     print("Profiles_data", profiles_data)
@@ -62,18 +66,17 @@ class ParamParser:
                         profile = NodeProfile()
                         
                         if isinstance(profile_data, dict):
-                        	profile.name = profile_data.get("name")
-                        	profile.hue_up = profile_data.get("hue_up", 0.0)
-                        	profile.sat_up = profile_data.get("sat_up", 0.0)
-                        	profile.val_up = profile_data.get("val_up", 0.0)
-                        	profile.hue_low = profile_data.get("hue_low", 0.0)
-                        	profile.sat_low = profile_data.get("sat_low", 0.0)
-                        	profile.val_low = profile_data.get("val_low", 0.0)
-                        
+                            profile.name = profile_data.get("name")
+                            profile.hue_up = profile_data.get("hue_up", 0.0)
+                            profile.sat_up = profile_data.get("sat_up", 0.0)
+                            profile.val_up = profile_data.get("val_up", 0.0)
+                            profile.hue_low = profile_data.get("hue_low", 0.0)
+                            profile.sat_low = profile_data.get("sat_low", 0.0)
+                            profile.val_low = profile_data.get("val_low", 0.0)
 
-                        	config.profiles.append(profile)
+                            config.profiles.append(profile)
                         else:
-                       		print(f"Invalid profile_data format in {self.path}: {profile_data}")
+                            print(f"Invalid profile_data format in {self.path}: {profile_data}")
 
         except FileNotFoundError:
             print(f"File not found: {self.path}")
