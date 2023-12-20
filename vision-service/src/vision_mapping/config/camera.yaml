@@ -1,0 +1,12 @@
+/oak:
+  ros__parameters:
+    camera:
+      i_nn_type: none
+      i_enable_imu: false
+      i_enable_ir: false
+    stereo:
+      i_fps: 30.0
+      i_disable_node: true
+    rgb:
+      i_fps: 30.0
+      i_disable_node: false
