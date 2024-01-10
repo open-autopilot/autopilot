@@ -57,12 +57,7 @@ def generate_launch_description():
                 output="screen",
                 parameters=[rl_params_file, {"use_sim_time": True}],
                 remappings=[
-                    ("imu/data", "imu/data"),
-                    ("gps/fix", "gps/fix"),
-                    ("gps/filtered", "gps/filtered"),
-                    ("odometry/gps", "odometry/gps"),
-                    ("odometry/filtered", "odometry/global"),
-                ],
+                    ("robot/gnss/fix", "gps/fix")],
             ),
         ]
     )

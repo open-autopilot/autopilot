@@ -4,6 +4,7 @@ SCRIPT_DIR="$(dirname "$0")"
 BUILD_DIR="$SCRIPT_DIR/build"
 ASSETS_DIR="$SCRIPT_DIR/assets"
 UNPACK=true
+DEPLOY=true
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -17,12 +18,16 @@ while [[ $# -gt 0 ]]; do
         -n | --no-unpack)
             UNPACK=false
             ;;
+        -d | --no-deploy)
+            DEPLOY=false
+            ;;
         -h | --help)
             echo "Usage: deploy.sh [options]"
             echo ""
             echo "Options:"
             echo "  -s, --service <service>    Deploy only the specified service"
             echo "  -n, --no-unpack            Do not unpack container files"
+            echo "  -d, --no-deploy            Do not deploy container files"
             echo "  --help                     Show this help message"
             exit 0
             ;;   
@@ -59,9 +64,11 @@ if $UNPACK; then
     done
 fi 
 
-if [[ -z "$SERVICES" ]]; then
-    docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate
-else 
-    docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate $SERVICES
+if $DEPLOY; then
+    if [[ -z "$SERVICES" ]]; then
+        docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate
+    else 
+        docker compose -f $ASSETS_DIR/docker-compose.yml up -d --force-recreate $SERVICES
+    fi
 fi
 

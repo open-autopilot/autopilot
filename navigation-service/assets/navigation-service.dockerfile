@@ -35,16 +35,12 @@ WORKDIR /robot_localization
 RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install
 
 # compiling ros2 code
-ARG PROJECT_DIR
 WORKDIR /
 COPY /navigation-service/src/autopilot_bringup autopilot_bringup
-COPY /navigation-service/src/autopilot_control autopilot_control
 
 WORKDIR /autopilot_bringup
 RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install
 
-WORKDIR /autopilot_control
-RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install
 
 # running ros2 packages
 WORKDIR /
