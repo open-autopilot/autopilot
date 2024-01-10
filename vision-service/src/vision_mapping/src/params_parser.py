@@ -20,6 +20,12 @@ class NodeConfig:
         self.debug = False
         self.output = NodeOutput.Color
         self.minimum = 0.0
+        self.grid_width = 10
+        self.grid_height = 10
+        self.camera_view = False
+        self.birdseye_view = False
+        self.mask_view = False
+        self.grid_view = False
         self.profiles = []
 
 def node_output_to_string(output):
@@ -61,6 +67,7 @@ class ParamParser:
 
                     profiles_data = config_data.get("profiles", [])
                     print("Profiles_data", profiles_data)
+
                     for profile_data in profiles_data:
                         print("Profile data:", profile_data)
                         profile = NodeProfile()
@@ -77,7 +84,7 @@ class ParamParser:
                             config.profiles.append(profile)
                         else:
                             print(f"Invalid profile_data format in {self.path}: {profile_data}")
-
+                
         except FileNotFoundError:
             print(f"File not found: {self.path}")
 

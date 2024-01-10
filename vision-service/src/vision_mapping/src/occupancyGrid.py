@@ -23,7 +23,7 @@ class PerspectiveTransformNode(Node):
         print(self.config)
             
     def load_config(self):
-        param_parser = ParamParser("/home/pascal/vision_test/config/config.yaml")
+        param_parser = ParamParser("/home/randytjoa/autopilot/vision-service/src/vision_mapping/config/config.yaml")
         return param_parser.parse()
         
     def compressed_callback(self,msg):
@@ -34,10 +34,10 @@ class PerspectiveTransformNode(Node):
         frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         self.image_callback(frame)
 
+
     def image_callback(self, frame):
-   
         # Grid width and height determined
-        grid_width, grid_height, camera_view, birdseye_view, mask_view, grid_view  = self.config.grid_width, self.config.grid_height, self.config.camera_view, self.config.birdseye_eye, self.config.mask_view, self.config.grid_view
+        grid_width, grid_height, camera_view, birdseye_view, mask_view, grid_view  = self.config.grid_width, self.config.grid_height, self.config.camera_view, self.config.birdseye_view, self.config.mask_view, self.config.grid_view
         resolution_x = 1280 // grid_width
         resolution_y = 720 // grid_height
         
@@ -45,10 +45,10 @@ class PerspectiveTransformNode(Node):
         occupancy_grid = np.zeros((grid_height, grid_width), dtype=np.uint8)
 
         # Selecting Coordinates
-        tl = (340, 0)  # red
-        bl = (0, 720)  # yellow
-        tr = (940, 0)  # purple
-        br = (1280, 710)  # blue
+        tl = (318, 30)  # red
+        bl = (152, 675)  # yellow
+        tr = (962, 30)  # purple
+        br = (1128, 675)  # blue
 
         cv2.circle(frame, tl, 5, (0, 0, 255), -1)
         cv2.circle(frame, bl, 5, (0, 255, 255), -1)
@@ -61,11 +61,6 @@ class PerspectiveTransformNode(Node):
         
         matrix = cv2.getPerspectiveTransform(pts1, pts2)
         transformed_frame = cv2.warpPerspective(frame, matrix, (1280, 720))
-
-        # Convert transformed_frame to bitmap
-        bitmap_path_transformed = "/home/randytjoa/vision-test/src/perspectivecalc/bitmap_transformed.bmp"
-        cv2.imwrite(bitmap_path_transformed, transformed_frame)
-        bitmap_image_transformed = cv2.imread(bitmap_path_transformed)
 
         # Set threshold for green color
         lower_green = np.array([self.config.profiles[0].hue_low, self.config.profiles[0].sat_low, self.config.profiles[0].val_low], dtype=np.uint8)
@@ -92,6 +87,8 @@ class PerspectiveTransformNode(Node):
         # Update the occupancy grid
         occupancy_grid = thresholded_resized
 
+        
+        # Update de occupancy grid met de geschatte positie en oriëntatie
         occupancy_grid_msg = self.create_occupancy_grid_message(thresholded_resized)
         self.occupancy_grid_publisher.publish(occupancy_grid_msg)
     
@@ -107,7 +104,7 @@ class PerspectiveTransformNode(Node):
         if grid_view == True:
             cv2.namedWindow("Occupancy grid", cv2.WINDOW_NORMAL)
             cv2.imshow("Occupancy grid", thresholded_resized)
-            cv2.resizeWindow("Occupancy grid", 200,400)
+            cv2.resizeWindow("Occupancy grid", 800,800)
         
         if cv2.waitKey(1) == 27:
             self.get_logger().info('Close...')
@@ -128,8 +125,8 @@ class PerspectiveTransformNode(Node):
         occupancy_grid_data[thresholded_resized == 127] = -1 #Unkown space
 
         # Convert binarized(thresholded) image to 1D list
-        occupancy_grid_data = thresholded_resized.flatten().astype(np.int8).tolist()
-        occupancy_grid_msg.data = occupancy_grid_data
+        occupancy_grid_data_flattened = occupancy_grid_data.flatten().astype(np.int8).tolist()
+        occupancy_grid_msg.data = occupancy_grid_data_flattened
 
         return occupancy_grid_msg
 
