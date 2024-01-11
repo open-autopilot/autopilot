@@ -57,7 +57,7 @@ def generate_launch_description():
    
     # Create the launch description and populate
     ld = LaunchDescription()
-    ld.add_action(robot_localization_cmd)
+    # ld.add_action(robot_localization_cmd)
     ld.add_action(navigation2_cmd)
 
     return ld
