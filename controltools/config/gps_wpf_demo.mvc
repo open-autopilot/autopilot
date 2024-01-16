@@ -61,7 +61,7 @@ displays:
     config:
       visible: true
       collapsed: false
-      topic: /gps/fix
+      topic: /robot/gnss/fix
       color: "#55aaff"
       draw_style: points
       position_tolerance: 0

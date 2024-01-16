@@ -22,13 +22,13 @@ def generate_launch_description():
             executable="initialize_origin.py",
             name="initialize_origin",
             remappings=[
-                ("robot/gnss/fix", "gps/fix"),
+               ("fix", "robot/gnss/fix"),
             ],
         ),
         launch_ros.actions.Node(
             package="tf2_ros",
             executable="static_transform_publisher",
             name="swri_transform",
-            arguments=["0", "0", "0", "0", "0", "0", "map", "origin"]
+            arguments=["0", "0", "0", "0", "0", "0", "map", "origin"],
         )
     ])

@@ -37,6 +37,14 @@ def generate_launch_description():
             launch_ros.actions.Node(
                 package="robot_localization",
                 executable="ekf_node",
+                name="ekf_filter_node_odom",
+                output="screen",
+                parameters=[rl_params_file, {"use_sim_time": True}],
+                remappings=[("odometry/filtered", "odometry/local")],
+            ),
+            launch_ros.actions.Node(
+                package="robot_localization",
+                executable="ekf_node",
                 name="ekf_filter_node_map",
                 output="screen",
                 parameters=[rl_params_file, {"use_sim_time": True}],
@@ -50,6 +58,8 @@ def generate_launch_description():
                 parameters=[rl_params_file, {"use_sim_time": True}],
                 remappings=[
                     ("robot/gnss/fix", "gps/fix"),
+                    ("odometry/gps", "odometry/gps"),
+                    ("gps/filtered", "gps/filtered"),                   
                     ("odometry/filtered", "odometry/global")],
             ),
         ]
