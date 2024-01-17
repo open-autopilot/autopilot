@@ -4,10 +4,10 @@ detection:
   minimum: 1000
   grid_width: 20
   grid_height: 20
-  camera_view: true
-  birdseye_view: true
-  mask_view: true
-  grid_view: true
+  camera_view: false
+  birdseye_view: false
+  mask_view: false
+  grid_view: false
   profiles:
     - name: green
       hue_up: 100
