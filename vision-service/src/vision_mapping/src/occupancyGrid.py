@@ -23,7 +23,7 @@ class PerspectiveTransformNode(Node):
         print(self.config)
             
     def load_config(self):
-        param_parser = ParamParser("/home/autopilot/autopilot/vision-service/src/vision_mapping/config/config.yaml")
+        param_parser = ParamParser("/vision_mapping/config/config.yaml")
         return param_parser.parse()
         
     def compressed_callback(self,msg):
