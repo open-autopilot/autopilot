@@ -1,0 +1,21 @@
+detection:
+  debug: false
+  output: "color"
+  minimum: 1000
+  grid_width: 20
+  grid_height: 20
+  camera_view: false
+  birdseye_view: false
+  mask_view: false
+  grid_view: false
+  profiles:
+    - name: green
+      hue_up: 100
+      sat_up: 255
+      val_up: 255
+      hue_low: 30
+      sat_low: 30
+      val_low: 30
+
+  
+

@@ -22,9 +22,23 @@ RUN apt-get install ros-dev-tools -y
 RUN source /opt/ros/humble/setup.bash
 
 # installing ros2 dependencies
+RUN sudo apt-get install udev -y 
+RUN echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | tee /etc/udev/rules.d/80-movidius.rules
+RUN /lib/systemd/systemd-udevd --daemon && udevadm control --reload-rules
+
+RUN apt-get update
+RUN apt-get install ros-humble-depthai-ros -y
+
+ARG PROJECT_DIR
+WORKDIR /
+COPY /vision-service/src/vision_mapping vision_mapping
+WORKDIR /vision_mapping
+RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install
+
 RUN apt-get install ros-humble-demo-nodes-cpp -y
 
 # running ros2 packages
 ARG PROJECT_DIR
-COPY $PROJECT_DIR/buildtools/assets/client.xml client.xml
-COPY $PROJECT_DIR/vision-service/assets/entry_point.sh entry_point.sh
+WORKDIR /
+COPY /buildtools/assets/client.xml client.xml
+COPY /vision-service/assets/entry_point.sh entry_point.sh

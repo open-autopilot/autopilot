@@ -13,3 +13,7 @@ services:
     privileged: True
     restart: unless-stopped
     network_mode: host
+    volumes:
+      - /dev:/dev
+    device_cgroup_rules:
+      - 'c 189:* rmw'
