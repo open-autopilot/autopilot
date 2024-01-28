@@ -30,4 +30,4 @@ The tools available are:
 With these tools you can build this autopilot for any platform. Although you may need to add docker to your user group. 
 
 ## documentation
-You can find all other documentation about this autopilot at 'to be determined'.
+You can find all other documentation about this autopilot at [Documentation](https://open-autopilot.github.io/autopilot/build/).
