@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_DIR="$(dirname "$0")"
 SCRIPT_DIR_FULL=$(realpath "$SCRIPT_DIR")
 
@@ -34,7 +35,6 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-# Check if platform is null
 if [ -z "$PLATFORM" ]; then
     echo "Error: --platform option is required."
     exit 1

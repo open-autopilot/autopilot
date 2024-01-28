@@ -1,3 +1,4 @@
+#!/bin/bash
 source ~/.bashrc
 
 SCRIPT_DIR="$(dirname "$0")"

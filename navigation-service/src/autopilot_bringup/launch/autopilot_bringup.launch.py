@@ -36,10 +36,10 @@ def generate_launch_description():
         source_file=nav2_params, root_key="", param_rewrites="", convert_types=True
     )
 
-    # robot_localization_cmd = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource(
-    #         os.path.join(launch_dir, 'autopilot_ekf.launch.py'))
-    # )
+    robot_localization_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_dir, 'autopilot_ekf.launch.py'))
+    )
 
     navigation2_cmd = GroupAction(actions=[ 
             SetRemap(src='/cmd_vel',dst='/robot/cmd_vel_aut'),
@@ -57,7 +57,7 @@ def generate_launch_description():
    
     # Create the launch description and populate
     ld = LaunchDescription()
-    # ld.add_action(robot_localization_cmd)
+    ld.add_action(robot_localization_cmd)
     ld.add_action(navigation2_cmd)
 
     return ld
